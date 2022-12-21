@@ -18,7 +18,12 @@
 
 static bool input_task_running = false;
 static uint32_t gamepad_state = -1; // _Atomic
-static int battery_level = -1;
+static struct {
+    int readings[10];
+    int cursor;
+    int average;
+    int latest;
+} battery_level;
 #if defined(RG_BATTERY_ADC_CHANNEL)
 static esp_adc_cal_characteristics_t adc_chars;
 #endif
@@ -215,11 +220,13 @@ static void input_task(void *arg)
 
         if ((loop_count % 100) == 0)
         {
-            int level = battery_read();
-            if (level > 0 && battery_level > 0)
-                battery_level = (battery_level + level) / 2;
-            else
-                battery_level = level;
+            battery_level.latest = battery_read();
+            battery_level.readings[battery_level.cursor++] = battery_level.latest;
+            battery_level.cursor %= RG_COUNT(battery_level.readings);
+            battery_level.average = 0;
+            for (size_t i = 0; i < RG_COUNT(battery_level.readings); ++i)
+                battery_level.average += battery_level.readings[i];
+            battery_level.average /= RG_COUNT(battery_level.readings);
         }
 
         rg_task_delay(10);
@@ -350,17 +357,17 @@ void rg_input_wait_for_key(rg_key_t key, bool pressed)
 
 bool rg_input_read_battery(float *percent, float *volts)
 {
-    if (battery_level < 0) // No battery or error?
+    if (battery_level.latest < 0) // No battery or error?
         return false;
 
     if (percent)
     {
-        *percent = RG_BATTERY_CALC_PERCENT(battery_level);
+        *percent = RG_BATTERY_CALC_PERCENT(battery_level.average);
         *percent = RG_MAX(0.f, RG_MIN(100.f, *percent));
     }
 
     if (volts)
-        *volts = RG_BATTERY_CALC_VOLTAGE(battery_level);
+        *volts = RG_BATTERY_CALC_VOLTAGE(battery_level.average);
 
     return true;
 }
