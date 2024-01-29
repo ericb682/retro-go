@@ -45,6 +45,7 @@ typedef struct __attribute__((packed))
 
 const db_game_t games_database[] =
 {
+#if 0
     // CRC, System, Mapper, PrgRomSize, ChrRomSize, ChrRamSize, WorkRamSize, SaveRamSize, Battery, Mirroring, SubMapper
     ENTRY(0x000B7B60, SYS_NES_NTSC, 1, 128, 128, 0, 0, 8, 1, PPU_MIRROR_HORI, 0),
     ENTRY(0x001388B3, SYS_NES_PAL, 4, 256, 128, 0, 0, 0, 0, PPU_MIRROR_HORI, 0),
@@ -4987,7 +4988,7 @@ const db_game_t games_database[] =
     ENTRY(0xFFF15FC3, SYS_NES_NTSC, 90, 128, 512, 0, 0, 0, 0, PPU_MIRROR_HORI, 0),
     ENTRY(0xFFF23429, SYS_NES_NTSC, 44, 512, 512, 0, 0, 0, 0, PPU_MIRROR_HORI, 0),
     ENTRY(0xFFFDC310, SYS_NES_NTSC, 79, 32, 64, 0, 0, 0, 0, PPU_MIRROR_HORI, 0),
-
+#endif
     ENTRY(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
 };
 

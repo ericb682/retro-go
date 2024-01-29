@@ -7,19 +7,10 @@
 			"path": "gwenesis"
 		},
 		{
-			"path": "launcher"
-		},
-		{
 			"path": "prboom-go"
 		},
 		{
 			"path": "retro-core"
-		},
-		{
-			"path": "smsplusgx-go"
-		},
-		{
-			"path": "snes9x-go"
 		},
 		{
 			"path": ".",

@@ -683,14 +683,14 @@ static void application(const char *desc, const char *name, const char *exts, co
 void applications_init(void)
 {
     application("Nintendo Entertainment System", "nes", "nes fc fds nsf", "retro-core", 16);
-    application("Super Nintendo", "snes", "smc sfc", "snes9x-go", 0);
+    application("Super Nintendo", "snes", "smc sfc", "retro-core", 0);
     application("Nintendo Gameboy", "gb", "gb gbc", "retro-core", 0);
     application("Nintendo Gameboy Color", "gbc", "gbc gb", "retro-core", 0);
     application("Nintendo Game & Watch", "gw", "gw", "retro-core", 0);
-    application("Sega Master System", "sms", "sms sg", "smsplusgx-go", 0);
-    application("Sega Game Gear", "gg", "gg", "smsplusgx-go", 0);
+    application("Sega Master System", "sms", "sms sg", "retro-core", 0);
+    application("Sega Game Gear", "gg", "gg", "retro-core", 0);
     application("Sega Mega Drive", "md", "md gen bin", "gwenesis", 0);
-    application("Coleco ColecoVision", "col", "col", "smsplusgx-go", 0);
+    application("Coleco ColecoVision", "col", "col", "retro-core", 0);
     application("NEC PC Engine", "pce", "pce", "retro-core", 0);
     application("Atari Lynx", "lnx", "lnx", "retro-core", 64);
     // application("Atari 2600", "a26", "a26", "stella-go", 0);

@@ -1,29 +1,13 @@
-#include <rg_system.h>
-#include <stdlib.h>
-#include <stdio.h>
-#include <string.h>
+#include "shared.h"
+
 #include <time.h>
 #include <math.h>
+#include <snes9x_import.h>
 
-#include "snes9x.h"
-#include "soundux.h"
-#include "memmap.h"
-#include "apu.h"
-#include "display.h"
-#include "gfx.h"
-#include "cpuexec.h"
-#include "srtc.h"
-#include "save.h"
 
 #include "keymap.h"
 
-#define AUDIO_SAMPLE_RATE (32040)
-#define AUDIO_BUFFER_LENGTH (AUDIO_SAMPLE_RATE / 60)
 #define AUDIO_LOW_PASS_RANGE ((60 * 65536) / 100)
-
-static rg_video_update_t updates[2];
-static rg_video_update_t *currentUpdate = &updates[0];
-static rg_app_t *app;
 
 static bool apu_enabled = true;
 static bool lowpass_filter = false;
@@ -259,7 +243,7 @@ static void S9xAudioCallback(void)
 }
 #endif
 
-void app_main(void)
+void snes_main(void)
 {
     const rg_handlers_t handlers = {
         .loadState = &load_state_handler,
@@ -274,7 +258,7 @@ void app_main(void)
         {2, "Controls", (char *)"", 1, &menu_keymap_cb},
         RG_DIALOG_CHOICE_LAST,
     };
-    app = rg_system_init(AUDIO_SAMPLE_RATE, &handlers, options);
+    app = rg_system_reinit(AUDIO_SAMPLE_RATE, &handlers, options);
 
     frameskip = rg_settings_get_number(NS_APP, SETTING_FRAMESKIP, frameskip);
     apu_enabled = rg_settings_get_number(NS_APP, SETTING_APU_EMULATION, 1);

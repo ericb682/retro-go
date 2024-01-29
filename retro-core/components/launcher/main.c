@@ -447,7 +447,7 @@ void event_handler(int event, void *arg)
         gui_redraw();
 }
 
-void app_main(void)
+void launcher_main(void)
 {
     const rg_handlers_t handlers = {
         .event = &event_handler,
@@ -466,7 +466,7 @@ void app_main(void)
         RG_DIALOG_END,
     };
 
-    app = rg_system_init(32000, &handlers, options);
+    app = rg_system_reinit(32000, &handlers, options);
     app->configNs = "launcher";
     app->isLauncher = true;
 

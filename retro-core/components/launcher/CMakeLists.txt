@@ -1,4 +1,5 @@
 set(COMPONENT_SRCDIRS ". libs")
 set(COMPONENT_ADD_INCLUDEDIRS ". libs")
+set(COMPONENT_REQUIRES "retro-go esp_http_server")
 register_component()
 rg_setup_compile_options(-O2)
